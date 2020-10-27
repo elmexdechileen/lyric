@@ -12,6 +12,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery
 from homeassistant.const import (CONF_SCAN_INTERVAL, HTTP_BAD_REQUEST, HTTP_OK)
 from homeassistant.components.http import HomeAssistantView
+from homeassistant.helpers.network import get_url
 
 _CONFIGURING = {}
 _LOGGER = logging.getLogger(__name__)
@@ -122,7 +123,7 @@ def setup(hass, config):
     cache_ttl = conf[CONF_SCAN_INTERVAL]
     filename = LYRIC_CONFIG_FILE
     token_cache_file = hass.config.path(filename)
-    redirect_uri = conf.get(CONF_REDIRECT_URI, hass.config.api.base_url +
+    redirect_uri = conf.get(CONF_REDIRECT_URI, get_url +
                             '/api/lyric/authenticate')
 
     lyric = lyric.Lyric(
